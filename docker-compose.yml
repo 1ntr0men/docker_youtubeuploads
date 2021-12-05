@@ -1,0 +1,9 @@
+version: "3"
+services:
+  auto_poster:
+    build: ./docker_auto_poster
+    command: python3 sheduler_autoposter.py
+
+  video_bot:
+    build: ./docker_video_bot
+    command: python3 video_bot.py
