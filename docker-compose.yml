@@ -1,5 +1,21 @@
-version: "3"
+version: "3.9"
 services:
+  database:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "youtube_uploads"
+      POSTGRES_USER: "intromen"
+      POSTGRES_PASSWORD: "pass"
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U intromen -d youtube_uploads" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
   auto_poster:
     build: ./docker_auto_poster
     command: python3 sheduler_autoposter.py
